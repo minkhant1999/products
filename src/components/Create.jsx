@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useAddNewProductMutation } from "../app/service/products";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+  const navigate = useNavigate();
   const [addNewProduct, { data, error, isLoading }] =
     useAddNewProductMutation();
 
@@ -54,14 +56,17 @@ const Create = () => {
             className="px-4 py-2 outline-none w-full"
           />
         </div>
-        <div className="flex justify-center items-center space-x-4 ">
+        <div className="flex justify-center items-center space-x-4 py-6">
           <button
             onClick={handleAddProduct}
             className="bg-blue-500 text-white px-4 py-2 rounded"
           >
             Create
           </button>
-          <button className="bg-gray-500 text-white px-4 py-2 rounded">
+          <button
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+            onClick={() => navigate("/")}
+          >
             Cancel
           </button>
         </div>

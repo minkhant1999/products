@@ -1,23 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetAllProductQuery } from "../app/service/products";
+import {
+  useGetAllProductMutation,
+  useSearchProductMutation,
+} from "../app/service/products";
 
 const Contents = () => {
-  const { data, isError, isLoading, isSuccess } = useGetAllProductQuery();
+  const [getProducts] = useGetAllProductMutation();
+  const [products, setProducts] = useState([]);
+
+  //search
+  const [searchProduct] = useSearchProductMutation();
   const navigate = useNavigate();
+
+  //search form
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts();
+        setProducts(res.data.products);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      }
+    };
+
+    fetchProducts();
+  }, [getProducts]);
+
+  const search = async () => {
+    try {
+      const res = await searchProduct(query);
+      setProducts(res.data.products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
       <div className="py-2">
         <div className="bg-gray-200 rounded-lg p-2">
-          <div className="flex justify-end items-center">
+          <div className="p-2">
+            <input
+              className="w-full p-2 rounded-xl outline-none"
+              type="text"
+              placeholder="Search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+          <div className="flex justify-end items-center space-x-6 my-10">
             <button
               className="bg-green-500 px-6 py-2 rounded-lg"
               onClick={() => navigate("create")}
             >
               <div className="flex space-x-2 items-center">
-                <p className="text-[24px] text-white">+</p>
                 <p className="text-white text-[20px]">Create</p>
+              </div>
+            </button>
+            <button
+              className="bg-orange-500 px-6 py-2 rounded-lg"
+              onClick={search}
+            >
+              <div className="flex space-x-2 items-center">
+                <p className="text-white text-[20px]">Search</p>
               </div>
             </button>
           </div>
@@ -40,7 +88,7 @@ const Contents = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.products.map((p) => (
+              {products?.map((p) => (
                 <tr className="odd:bg-white even:bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2">
                     {p.title}
@@ -64,7 +112,7 @@ const Contents = () => {
                     {p.stock}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <div className="flex space-x-2">
+                    <div className="flex justify-center items-center space-x-2">
                       <button>Detail</button>
                       <button>Edit</button>
                       <button>Delete</button>
