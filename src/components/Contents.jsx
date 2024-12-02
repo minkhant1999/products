@@ -64,7 +64,11 @@ const Contents = () => {
                     {p.stock}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <button>Detail</button>
+                    <div className="flex space-x-2">
+                      <button>Detail</button>
+                      <button>Edit</button>
+                      <button>Delete</button>
+                    </div>
                   </td>
                 </tr>
               ))}
