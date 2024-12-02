@@ -62,14 +62,6 @@ const Contents = () => {
           </div>
           <div className="flex justify-end items-center space-x-6 my-10">
             <button
-              className="bg-orange-500 px-6 py-2 rounded-lg"
-              onClick={reset}
-            >
-              <div className="flex space-x-2 items-center">
-                <p className="text-white text-[20px]">Reset</p>
-              </div>
-            </button>
-            <button
               className="bg-green-500 px-6 py-2 rounded-lg"
               onClick={() => navigate("create")}
             >
@@ -77,6 +69,15 @@ const Contents = () => {
                 <p className="text-white text-[20px]">Create</p>
               </div>
             </button>
+            <button
+              className="bg-orange-500 px-6 py-2 rounded-lg"
+              onClick={reset}
+            >
+              <div className="flex space-x-2 items-center">
+                <p className="text-white text-[20px]">Reset</p>
+              </div>
+            </button>
+
             <button
               className="bg-orange-500 px-6 py-2 rounded-lg"
               onClick={search}
