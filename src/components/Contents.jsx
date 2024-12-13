@@ -131,8 +131,9 @@ const Contents = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     <div className="flex justify-center items-center space-x-2">
-                      <button>Detail</button>
-                      <button>Edit</button>
+                      <button onClick={() => navigate(`detail/${p.id}`)}>
+                        Edit
+                      </button>
                       <button>Delete</button>
                     </div>
                   </td>

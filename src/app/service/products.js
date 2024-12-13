@@ -31,6 +31,13 @@ export const productsApi = createApi({
         params: { q },
       }),
     }),
+
+    getDetailProduct: builder.mutation({
+      query: (q) => ({
+        url: `/products/${q}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -38,4 +45,5 @@ export const {
   useGetAllProductMutation,
   useAddNewProductMutation,
   useSearchProductMutation,
+  useGetDetailProductMutation,
 } = productsApi;
